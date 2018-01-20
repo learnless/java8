@@ -6,12 +6,14 @@ import org.learnless.model.Transaction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 /**
- * 练习
+ * 练习 stream
  * Created by learnless on 18.1.19.
  */
 public class PuttingIntoPractice {
@@ -43,6 +45,11 @@ public class PuttingIntoPractice {
                 .map(transaction -> transaction.getTrader().getCity())
                 .distinct()
                 .collect(toList());
+        
+        //或者
+        Set<String> result22 = transactions.stream()
+                .map(transaction -> transaction.getTrader().getCity())
+                .collect(toSet());
         System.out.println("==========2===========");
         result2.forEach(System.out::println);
 
@@ -51,19 +58,20 @@ public class PuttingIntoPractice {
                 .map(Transaction::getTrader)
                 .distinct()
                 .filter(trader -> "Cambridge".equals(trader.getCity()))
+                .sorted(comparing(Trader::getName))
                 .collect(toList());
         System.out.println("==========3===========");
         result3.forEach(System.out::println);
 
 
         //Query4 查找所有交易员的名字字符串，按字母排序
-        List<Trader> result4 = transactions.stream()
-                .map(transaction -> transaction.getTrader())
+        String result4 = transactions.stream()
+                .map(transaction -> transaction.getTrader().getName())
                 .distinct()
-                .sorted(comparing(Trader::getName))
-                .collect(toList());
+                .sorted()
+                .reduce("", (n1, n2) -> n1 + n2);
         System.out.println("==========4===========");
-        result4.forEach(System.out::println);
+        System.out.println(result4);
 
         //Query5 有交易员在米兰工作过
         boolean result5 = transactions.stream()
@@ -75,11 +83,12 @@ public class PuttingIntoPractice {
         System.out.println("==========6===========");
         transactions.stream()
                 .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getValue)
                 .forEach(System.out::println);
 
         //Query7 所有的交易额最高是多少
         Optional<Integer> result7 = transactions.stream()
-                .map(transaction -> transaction.getValue())
+                .map(Transaction::getValue)
                 .reduce(Integer::max);
         System.out.println("==========7===========");
         System.out.println(result7.get());
