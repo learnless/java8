@@ -75,6 +75,7 @@ public class StreamBasic {
         //get 值存在返回值，否则抛出NoSuchElement
         Dish dish1 = dish.get();
         //orElse 值存在返回值，否则返回默认值
+        dish.orElse(null);
 
         System.out.println(dish1);
     }
