@@ -1,4 +1,4 @@
-package org.learnless.chap06;
+package org.learnless.chap06.mycollector;
 
 import java.util.*;
 import java.util.function.BiConsumer;
