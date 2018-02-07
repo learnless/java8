@@ -11,7 +11,6 @@ import java.util.stream.LongStream;
  * Created by learnless on 18.1.28.
  */
 public class ForkJoinSumCalculator extends RecursiveTask<Long> {
-    // TODO: 18.1.28 选择比较随意，可以使用工作窃取来自动选择
     private static final long THRESHOLD = 10_000;   //不再任务分解为子任务时数组大小
 
     private final long[] numbers;
